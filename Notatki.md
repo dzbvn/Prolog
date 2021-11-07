@@ -1,4 +1,5 @@
-# Sprawozdanie
+# Sprawozdanie Prolog
+Szymon Klempert
 ## 1. Programowanie w prologu
 ### Prosty program
 
@@ -115,6 +116,7 @@ rodzic(kasia, robert).
 rodzic(tomek, robert).
 rodzic(tomek, eliza).
 ```
+---
 #### Pytanie
 ```
 ?- rodzic(_,robert).
@@ -123,6 +125,7 @@ rodzic(tomek, eliza).
 ```
 true
 ```
+---
 ### Zadawanie celu (pytań)
 > Tam, gdzie to możliwe, używam ';', aby uzyskać wszystkie wyniki.
 
@@ -135,7 +138,7 @@ true
 X = tomek
 X = robert
 ```
-
+---
 #### Pytanie
 ```
 ?- mezczyzna(tomek).
@@ -144,6 +147,7 @@ X = robert
 ```
 true
 ```
+---
 #### Pytanie
 ```
 ?- mezczyzna(reksio).
@@ -152,6 +156,7 @@ true
 ```
 false
 ```
+---
 #### Pytanie
 ```
 ?- rodzic(kasia,robert).
@@ -160,6 +165,7 @@ false
 ```
 true
 ```
+---
 #### Pytanie
 ```
 ?- rodzic(kasia,X).
@@ -168,6 +174,7 @@ true
 ```
 X = robert
 ```
+---
 #### Pytanie
 ```
 ?- rodzic(Y,robert).
@@ -236,6 +243,7 @@ ojciec(X,Y) :-
 ```
 X = kasia
 ```
+---
 #### Pytanie
 ```
 ?- ojciec(X, robert).
@@ -309,3 +317,108 @@ babcia(X,Y) :-
 X = kasia
 ```
 Przy bracie i siostrze trzeba pamiętać o `X \= Y`, gdyż bez tego może pojawić się problem typu Robert będzie bratem Roberta.
+
+
+### Reguły rekurencyjne
+
+#### Potomek
+```
+potomek(X,Y) :-
+    rodzic(Y,X).
+
+potomek(X,Z) :-
+	rodzic(Y, X),
+    przodek(Z, Y).
+```
+##### Test
+```
+?- potomek(X, tomek).
+```
+```
+X = robert
+X = eliza
+X = anna
+X = magda
+X = jan
+```
+
+#### Krewny
+```
+krewny(X,Y) :-
+    przodek(Z,X),
+    przodek(Z,Y),
+    X \= Y.
+```
+
+## 2. Obserwacje
+### Klasyczny program
+```
+?- write('Hello world'), nl.
+```
+```
+Hello world
+true
+```
+
+## 3. Arytmetyka w Prologu
+#### Ćwiczenie
+```
+?- X is 2 + 2.
+```
+
+```
+X = 4
+```
+---
+```
+?- Y is 2.5 + ( 4 / 2).
+```
+
+```
+Y = 4.5
+```
+---
+```
+?- Z is 2 + 0.001.
+```
+
+```
+Z = 2.001
+```
+---
+```
+?- A is 3.
+```
+```
+A = 3
+```
+---
+#### 😎 Napisz program obliczający wynik równania kwadratowego (Quadratic Equation) ax^2 + bx + c = 0 w dziedzinie liczb rzeczywistych. Zaimplementuj predykaty:
+
+- delta/4 – obliczający deltę, argumenty kolejno: a, b, c, wynik,
+- kwadrat/4 – obliczający wynik równania kwadratowego, argumenty kolejno: a, b, c, wynik.
+
+```
+delta(A, B, C, Wynik) :-
+    Wynik is B*B - 4*A*C.
+          
+          
+kwadrat(A, B, C, Wynik) :-
+    delta(A, B, C, Wynik),
+    Wynik > 0,
+    X1 is (-B - sqrt(Wynik))/(2*A),
+    X2 is (-B + sqrt(Wynik))/(2*A),
+    write('X1 = '), write(X1), nl,
+	write('X2 = '), write(X2).
+	
+kwadrat(A, B, C, Wynik) :-
+    delta(A, B, C, Wynik),
+    Wynik = 0,
+    X is (-B)/(2*A),
+	write('X = '), write(X),nl.
+	
+kwadrat(A, B, C, Wynik) :-
+    delta(A, B, C, Wynik),
+    Wynik < 0,
+    write('Delta < 0'), nl.
+```
