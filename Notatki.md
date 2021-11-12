@@ -328,7 +328,8 @@ Przy bracie i siostrze trzeba pamiętać o `X \= Y`, gdyż bez tego może pojawi
 
 ### Reguły rekurencyjne
 
-#### Potomek (odwrotność przodka)
+#### 😎 Jak zdefiniować potomka, krewnego?
+##### Potomek (odwrotność przodka)
 ```
 potomek(X,Y) :-
     rodzic(Y,X).
@@ -339,7 +340,7 @@ potomek(X,Z) :-
 ```
 
 
-#### Krewny (wspólny przodek)
+##### Krewny (wspólny przodek)
 ```
 krewny(X,Y) :-
     przodek(Z,X),
