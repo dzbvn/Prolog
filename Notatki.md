@@ -457,7 +457,7 @@ kwadrat(A, B, C, Wynik) :-
     delta(A, B, C, Wynik),
     Wynik = 0,
     X is (-B)/(2*A),
-	write('X = '), write(X),nl.
+    write('X = '), write(X),nl.
 	
 kwadrat(A, B, C, Wynik) :-
     delta(A, B, C, Wynik),
