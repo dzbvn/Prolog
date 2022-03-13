@@ -3,6 +3,7 @@ Autor: Szymon Klempert
 ## 1. Programowanie w prologu
 ### Prosty program
 
+
 ```
 rodzic(kasia,robert).
 rodzic(tomek,robert).
